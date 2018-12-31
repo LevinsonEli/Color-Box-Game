@@ -1,0 +1,51 @@
+
+.gameAndTime {
+  display: flex;
+  justify-content: row;
+  align-items: center;
+}
+
+.box {
+  height: 22%;
+  border-radius: 7%;
+  border: 2px solid #999;
+  margin: 1%;
+  flex-basis: 22%;
+
+  text-align: center;
+  align-content: center;
+  align-items: center;
+}
+
+.gameBox{
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1.header {
+  text-align: center;
+  font-size: 3.5em;
+  background: linear-gradient(rgb(28, 160, 24), #a89006);
+  
+}
+
+button {
+  font-size: 1.3em;
+  padding: 3px 10px;
+  color: black;
+  background-color: #ccc;
+  border-radius: 10%;
+  margin: 2px 5px;
+}
+button:hover {
+  color: #ddd;
+  background-color: #444;
+}
+
+@keyframes colors {
+  0% {
+    
+  }
+}
