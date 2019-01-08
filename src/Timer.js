@@ -3,8 +3,8 @@ import React, { Component } from "react";
 class Timer extends Component {
     render() {
         let {time} = this.props;
-        let min = parseInt(time / 60);
-        let sec = parseInt(time - (min * 60));
+        let min = parseInt(time / 60, 10);
+        let sec = parseInt(time - (min * 60), 10);
         return (
             <div className="timer">
                 Time: { min < 10 ? ("0" + min) : min }

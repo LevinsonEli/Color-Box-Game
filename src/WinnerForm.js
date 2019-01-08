@@ -19,19 +19,23 @@ class Winner extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        alert("Done: @" + this.state.nickName + " " + this.props.time);
+        this.props.handleNewScore(this.state.nickName);
     }
     render(){
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        value={this.state.nickName}
-                        onChange={this.handleChange}
-                        name="nickName"
-                    />
-                    <input type="submit" value="Submit" />
+                    <label title="nickName" htmlFor="nickName">
+                        Enter your nickName: <br/>
+                        <input
+                            type="text"
+                            value={this.state.nickName}
+                            onChange={this.handleChange}
+                            name="nickName"
+                            autoComplete="off"
+                        />
+                    </label>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         )

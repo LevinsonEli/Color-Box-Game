@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 
 class Menu extends Component {
-    constructor(props){
-        super(props);
-    }
 
     render() {
         return (
             <div className="menu">
+                Start New Game: 
                 <button onClick={() => {this.props.startNewGame(1)}}>
                     Easy
                 </button>

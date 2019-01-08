@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import WinnerForm from "./WinnerForm";
 import Timer from "./Timer";
 import HintButton from "./HintButton";
+import ScoreTable from "./ScoreTable";
 
 
 class Game extends Component {
@@ -15,20 +16,43 @@ class Game extends Component {
     this.defaultColor = "#777";
 
     this.state = {
-      arrayColors: Array(),
+      arrayColors: Array(this.GAME_SIZE),
       renderedColors: Array(this.GAME_SIZE).fill(this.defaultColor),
       previousColor: this.defaultColor,
       available: true,
       time: 0,
       winner: false,
       timeLevel: 1000,
-      hints: 2
+      hints: 2,
+      players: [
+        {
+            name: "@Salvador",
+            score: 37
+         },
+        {
+            name: "@Mickael",
+            score: 42
+        },
+        {
+            name: "@Donatelo",
+            score: 56
+        },
+        {
+            name: "@Denis",
+            score: 73
+        },
+        {
+            name: "@Mikhel",
+            score: 105
+        }
+      ]
     }
 
     this.makeAhint = this.makeAhint.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.theSameColors = this.theSameColors.bind(this);
     this.startNewGame = this.startNewGame.bind(this);
+    this.handleNewScore = this.handleNewScore.bind(this);
   }
 
   componentDidMount () {
@@ -143,7 +167,6 @@ class Game extends Component {
       // Check end of the game:
       if (this.theSameColors (data.renderedColors, this.state.arrayColors, this.GAME_SIZE)) {
         this.setState(data, () => {
-            alert("You done it: " + this.state.time);
             this.setState({...this.state, winner: true});
             clearInterval(this.myTimer);
         });
@@ -155,7 +178,7 @@ class Game extends Component {
     else
     {
       // No Match
-      // data.previousColor = data.renderedColors[i];
+      // data.previousColor[i] = data.renderedColors[i];
       data.available = false;
       this.setState(data, () => {
         setTimeout( () => {
@@ -174,8 +197,16 @@ class Game extends Component {
     this.setState(data);
   }
 
+  handleNewScore(name) {
+    let players = [...this.state.players];
+    players.push({name: "@"+name, score: this.state.time});
+    players = players.sort((a,b) => a.score - b.score);
+    this.setState({...this.state, players});
+    this.startNewGame(this.state.timeLevel);
+  }
+
   render () {
-    let output = (this.state.winner)?(<WinnerForm time={this.state.time} />) : 
+    let output = (this.state.winner)?(<WinnerForm handleNewScore={this.handleNewScore} />) : 
     (this.state.renderedColors.map((color, index) => (
       <Square 
         color={color}
@@ -184,9 +215,10 @@ class Game extends Component {
       />
     )));
     return (
-      <div>
-        <Navbar  startNewGame={this.startNewGame} />
+      <div className="game">
+        <Navbar toogleScoreView={this.toogleScoreView} startNewGame={this.startNewGame} />
         <div className="gameAndTime">
+          <ScoreTable players={this.state.players} />
           <div className="gameBox">
             {output}
           </div>
